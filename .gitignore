@@ -4,4 +4,4 @@
 *obj/
 .vs/
 packages/
-*.user
+*.user.DS_Store
