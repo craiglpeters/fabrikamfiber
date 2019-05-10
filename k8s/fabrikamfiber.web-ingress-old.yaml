@@ -19,7 +19,7 @@ metadata:
   name: fabrikamfiberweb-ingress
 spec:
   rules:
-    - host: rascally.test.ogfg.link
+    - host: silly.test.ogfg.link
       http:
         paths:
           - backend:
