@@ -16,7 +16,6 @@ What's needed:
 ### Steps to build
 
 Find "Developer Command Prompt for VS 2017" on the Start menu or by searching for it. Once the command window is open, change to the directory with the source code, and run these steps.
- 
 
 ```cmd
 rmdir /s /q MyCompany.Visitors.Web\bin\Release\Publish
@@ -26,10 +25,10 @@ cd FabrikamFiber.Web
 
 docker build --no-cache -t ff .
 docker run --rm -p 8080:80 -d ff
-``` 
+```
+
 > Note: When you want to update the Windows and .Net container layers later, update then run `docker pull` on the base image given in the Dockerfile, then run `docker build` again.
 
- 
 ## Kubernetes
 
 What's needed

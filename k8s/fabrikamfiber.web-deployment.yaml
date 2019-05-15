@@ -32,3 +32,8 @@ spec:
             memory: 300m
       nodeSelector:
         beta.kubernetes.io/os: windows
+      tolerations:
+      - key: "os"
+        operator: "Equal"
+        value: "Windows"
+        effect: "NoSchedule" 
