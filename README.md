@@ -38,19 +38,19 @@ What's needed
 - kubectl
 - The files at k8s/* in this repo
 
-The latest step by step guide to deploying this on Azure at http://aka.ms/windowscontainers/kubernetes
+The latest step by step guide to deploying this on Azure at [http://aka.ms/windowscontainers/kubernetes](http://aka.ms/windowscontainers/kubernetes)
 
 ### Steps to deploy
 
-This will create 2 deployments - one for web, one for the database, along with a shared secret. 
- 
+This will create 2 deployments - one for web, one for the database, along with a shared secret.
+
 Description                         | Deployment Name              | Service
 ------------------------------------|------------------------------|-------------------------
 Web site behind Azure load balancer | fabrikamfiber.web            | fabrikamfiberweb
 SQL Server express database         | db                           | db
- 
+
 All 4 can be deployed using these steps:
- 
+
 ```bash
 kubectl apply -n ff -f k8s/db-secret.yaml
 kubectl apply -n ff -f k8s/db-mssql-linux.yaml

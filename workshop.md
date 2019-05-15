@@ -7,7 +7,7 @@
 1. Define namespaces and users for all attendees, and distribute among the clusters
 1. Assign the namespaces and users to attendees when they arrive
 
-## Lab 1 - Intro to Windows Containers
+## Part 1 - Intro to Windows Containers
 
 Run a simple cmd in a Windows container
 
@@ -17,14 +17,14 @@ TODO: Instructions for connecting to a Windows VM using Microsoft Remote Desktop
 
 ### Windows
 
-#### Part 1 - Run a Windows Server container on Windows Server 2019
+#### Exercise 1 - Run a Windows Server container on Windows Server 2019
 
 If you are running on a Windows 10 or Windows Server Core Host, then all of the following commands will work.
 > If you're running a VM on Azure, make sure it is a v2 machine supporting nested virtualization
 
 ##### Install docker
 
-If you do not already have Docker installed, go to https://hub.docker.com/editions/community/docker-ce-desktop-windows and follow the instructions. May require a couple of reboots to enable docker and then HyperV.
+If you do not already have Docker installed, go to the [Docker for Windows installation](https://hub.docker.com/editions/community/docker-ce-desktop-windows) and follow the instructions. May require a couple of reboots to enable docker and then HyperV.
 
 Make sure that [Docker is set to run Windows containers](https://docs.docker.com/docker-for-windows/#switch-between-windows-and-linux-containers).
 
