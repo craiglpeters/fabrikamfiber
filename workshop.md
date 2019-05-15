@@ -79,14 +79,11 @@ C:\> az aks get-credentials --resource-group <myResourceGroup> --name <myAKSClus
 ## Running the application as a pod on Kubernetes
 
 ```bash
-# create a namespace to deploy into
-kubectl apply -f k8s/kubecon-demo-namespace.yaml
-
 # configure the database authentication as a kubernetes secret
-kubectl apply -n kubecon-demo -f k8s/db-secret.yaml
+kubectl apply -n $NAMESPACE -f k8s/db-secret.yaml
 
 # create the mssql on linux deployment
-kubectl apply -n kubecon-demo -f k8s/db-mssql-linux.yaml
+kubectl apply -n $NAMESPACE -f k8s/db-mssql-linux.yaml
 
 # create the kubernetes service so the ASP.NET app can connect to the database
 kubectl apply -n kubecon-demo -f k8s/db-service.yaml

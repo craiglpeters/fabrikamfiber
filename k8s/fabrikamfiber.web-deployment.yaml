@@ -35,5 +35,5 @@ spec:
       tolerations:
       - key: "os"
         operator: "Equal"
-        value: "Windows"
+        value: "windows"
         effect: "NoSchedule" 
