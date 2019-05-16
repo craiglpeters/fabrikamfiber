@@ -86,11 +86,11 @@ kubectl apply -n $NAMESPACE -f k8s/db-secret.yaml
 kubectl apply -n $NAMESPACE -f k8s/db-mssql-linux.yaml
 
 # create the kubernetes service so the ASP.NET app can connect to the database
-kubectl apply -n kubecon-demo -f k8s/db-service.yaml
+kubectl apply -n $NAMESPACE -f k8s/db-service.yaml
 
 # deploy the APS.NET pods as a part of a deployment
-kubectl apply -n kubecon-demo -f k8s/fabrikamfiber.web-deployment.yaml
+kubectl apply -n $NAMESPACE -f k8s/fabrikamfiber.web-deployment.yaml
 
 # configure the service so the client can connect to the pods running the ASP.NET app
-kubectl apply -n kubecon-demo -f k8s/fabrikamfiber.web-ingress.yaml
+kubectl apply -n $NAMESPACE -f k8s/fabrikamfiber.web-ingress.yaml
 ```

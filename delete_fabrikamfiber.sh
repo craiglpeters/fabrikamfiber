@@ -1,19 +1,25 @@
 #!/bin/bash
 
-# configure the database authentication as a kubernetes secret
+# delete the database authentication as a kubernetes secret
+echo 'kubectl delete -f k8s/db-secret.yaml -n '$NAMESPACE
 kubectl delete -f k8s/db-secret.yaml -n $NAMESPACE 
 
-# create the mssql on linux deployment
+# delete the mssql on linux deployment
+echo 'kubectl delete -f k8s/db-mssql-linux.yaml -n '$NAMESPACE
 kubectl delete -f k8s/db-mssql-linux.yaml -n $NAMESPACE 
 
-# create the kubernetes service so the ASP.NET app can connect to the database
+# delete the kubernetes service so the ASP.NET app can connect to the database
+echo 'kubectl delete -f k8s/db-service.yaml -n '$NAMESPACE
 kubectl delete -f k8s/db-service.yaml -n $NAMESPACE
 
-# deploy the APS.NET pods as a part of a deployment
+# delete the APS.NET pods as a part of a deployment
+echo 'kubectl delete -f k8s/fabrikamfiber.web-deployment.yaml -n '$NAMESPACE
 kubectl delete -f k8s/fabrikamfiber.web-deployment.yaml -n $NAMESPACE
 
-# create a k8s load balancer for the ASP.NET pods
-kubectl delete -f k8s/fabrikamfiver.web-loadbalancer.yaml -n $NAMESPACE
+# delete a k8s load balancer for the ASP.NET pods
+echo 'kubectl delete -f k8s/fabrikamfiber.web-loadbalancer.yaml -n '$NAMESPACE
+kubectl delete -f k8s/fabrikamfiber.web-loadbalancer.yaml -n $NAMESPACE
 
-# configure the ingress cotroller service so the client can connect to the pods running the ASP.NET app
-kubectl delete -f k8s/fabrikamfiber.web-ingress.yaml -n $NAMESPACE
+# delete the ingress controller configuration
+echo 'kubectl delete -f k8s/fabrikamfiber.web-ingress.yaml -n ingress-basic'
+kubectl delete -f k8s/fabrikamfiber.web-ingress.yaml -n ingress-basic 
