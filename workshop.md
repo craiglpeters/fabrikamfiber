@@ -53,8 +53,14 @@ C:\> @"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -
 C:\> choco install git -params '"/GitAndUnixToolsOnPath"'
 
 # Clone the workshop repository
-C:> git clone https://github.com/craiglpeters/windows-containers-workshop.git
-C:> cd windows-containers-workshop
+C:\> git clone https://github.com/craiglpeters/fabrikamfiber
+C:\> cd fabrikamfiber
+C:\fabrikamfiber\> rmdir /s /q MyCompany.Visitors.Web\bin\Release\Publish
+C:\fabrikamfiber\> msbuild FabrikamFiber.CallCenter.sln /t:clean /p:Configuration=Release
+C:\fabrikamfiber\> msbuild FabrikamFiber.CallCenter.sln /t:build /p:Configuration=Release /p:PublishProfile=FolderProfile /p:DeployOnBuild=true
+C:\fabrikamfiber\> cd FabrikamFiber.Web
+C:\fabrikamfiber\FabrikamFiber.Web\> docker build --no-cache -t ff .
+C:\fabrikamfiber\FabrikamFiber.Web\> docker push <your registry>
 ```
 
 ## Part 3 Run the ASP.NET app as a pod on a Kubernetes cluster
@@ -72,11 +78,9 @@ C:\> choco install azure-cli
 
 # Get your kubeconf for access to your cluster replacing vars below
 C:\> az aks get-credentials --resource-group <myResourceGroup> --name <myAKSCluster>
-
-
 ```
 
-## Running the application as a pod on Kubernetes
+### Running the application as a pod on Kubernetes
 
 ```bash
 # configure the database authentication as a kubernetes secret
