@@ -11,60 +11,53 @@
 
 Run a simple cmd in a Windows container
 
-TODO: Instructions for connecting to a Windows VM using Microsoft Remote Desktop
-
-### Windows
-
-#### Exercise 1 - Run a Windows Server container on Windows Server 2019
+TODO: For Mac - instructions for connecting to a Windows VM using Microsoft Remote Desktop
 
 If you are running on a Windows 10 or Windows Server Core Host, then all of the following commands will work.
 > If you're running a VM on Azure, make sure it is a _v2 machine supporting nested virtualization
 
-##### Install docker
+### Install docker
 
 If you do not already have Docker installed, go to the [Docker for Windows installation](https://hub.docker.com/editions/community/docker-ce-desktop-windows) and follow the instructions. May require a couple of reboots to enable docker and then HyperV.
 
 Make sure that [Docker is set to run Windows containers](https://docs.docker.com/docker-for-windows/#switch-between-windows-and-linux-containers).
 
-##### Check if it works
+### Check if it works
 
 ```cmd
 # Run Windows Server Core as a Windows Container and obtain the Windows Build information via ver
-C:\Users\username> docker run mcr.microsoft.com/windows/servercore:ltsc2019 cmd /c ver
+C:\Users\username\> docker run mcr.microsoft.com/windows/servercore:ltsc2019 cmd /c ver
 
 # Run Windows Server Core as a Windows Container and obtain the Windows Build information via Powershell
-C:\Users\username> docker run mcr.microsoft.com/windows/servercore:ltsc2019 powershell [environment]::OSVersion.Version
+C:\Users\username\> docker run mcr.microsoft.com/windows/servercore:ltsc2019 powershell [environment]::OSVersion.Version
 
 # Run Core as a Windows Container and launch interactive Powershell shell
-C:\Users\username> docker run -it mcr.microsoft.com/windows/servercore:ltsc2019 powershell
+C:\Users\username\> docker run -it mcr.microsoft.com/windows/servercore:ltsc2019 powershell
 ```
 
-##### Install az, git, and clone the repo
+### Install az, git, and clone the repo
 
 ```powershell
 # Install chocolatey
 C:> @"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
 
 # Install az
-C:> choco install azure-cli
+C:\> choco install azure-cli
 
 # Install git
-C:> choco install git -params '"/GitAndUnixToolsOnPath"'
+C:\> choco install git -params '"/GitAndUnixToolsOnPath"'
 
 # Clone the workshop repository
-C:> git clone https://github.com/craiglpeters/windows-containers-workshop.git
-C:> cd windows-containers-workshop
+C:\> git clone https://github.com/craiglpeters/fabrikamfiber.git
+C:\> cd windows-containers-workshop
 ```
-##### Install kubectl
+### Install kubectl, get connected to the cluster, and set your namespace
 
 ```cmd
 C:\> mkdir C:\k
 C:\> cd C:\k
 C:\k> curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.14.0/bin/windows/amd64/kubectl.exe
 C:\k> set PATH=%PATH%;C:\k
-
-# Install az
-C:\> choco install azure-cli
 
 # Get your kubeconf for access to your cluster replacing vars below
 C:\> az aks get-credentials --resource-group <myResourceGroup> --name <myAKSCluster>
@@ -80,7 +73,12 @@ kubectl config set-context $(kubectl config current-context) --namespace=<insert
 kubectl config view | grep namespace:
 ```
 
-##### Create a pod spec for powershell, and use kubectl to run it
+### Check out the nodes - there are Windows and Linux nodes in the cluster
+```cmd
+C:\k\> kubectl get nodes -o wide
+```
+
+### Create a pod spec for powershell, and use kubectl to run it
 TO DO: write this part
 
 ## Lab 2 Package an ASP.NET app in a Docker image
