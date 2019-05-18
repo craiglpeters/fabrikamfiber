@@ -3,7 +3,7 @@ kind: Service
 metadata:
   labels:
     app: fabrikamfiber.web
-  name: fabrikamfiberweb
+  name: fabrikamfiberweb-craig
 spec:
   ports:
   - port: 80
