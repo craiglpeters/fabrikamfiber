@@ -3,7 +3,7 @@ kind: Service
 metadata:
   labels:
     app: fabrikamfiber.web
-  name: fabrikamfiberweb
+  name: fabrikamfiberweb-craig
 spec:
   ports:
   - port: 80
@@ -29,7 +29,7 @@ spec:
   - host: kubecon-demo-aks-ingress-craigp.eastus.cloudapp.azure.com
     http:
       paths:
-      - path: /
+      - path: /craig
         backend:
-          serviceName: fabrikamfiberweb
+          serviceName: fabrikamfiberweb-craig
           servicePort: 80
