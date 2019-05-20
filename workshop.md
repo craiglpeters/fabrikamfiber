@@ -125,7 +125,7 @@ Edit k8s/fabrikamfiber.web-ingress.yaml and update the backend with your service
 
 ```bash
 # configure the service so the client can connect to the pods running the ASP.NET app
-kubectl apply -n ingress-basic -f k8s/fabrikamfiber.web-ingress.yaml
+kubectl apply -n <insert-your-name-here> -f k8s/fabrikamfiber.web-ingress.yaml
 
 # get the URL to the ingress controller
 kubectl describe ingress fabrikamfiber-ingress -n ingress-basic 
