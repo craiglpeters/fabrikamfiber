@@ -2,10 +2,8 @@
 
 ## Preparation steps to run on Azure
 
-1. Preallocate X static IP addresses
-1. Precreate Y Kubernetes clusters
-1. Define namespaces and users for all attendees, and distribute among the clusters
-1. Assign the namespaces and users to attendees when they arrive
+1. Preallocate a static IP address
+1. Precreate Kubernetes clusters
 
 ## Lab 1 - Intro to Windows Containers
 
@@ -75,11 +73,21 @@ kubectl config view | grep namespace:
 
 ### Check out the nodes - there are Windows and Linux nodes in the cluster
 ```cmd
+# List the nodes
 C:\k\> kubectl get nodes -o wide
+
+# Examine the taints on the Windows nodes
+C:\k\> kubectl describe node <insert-a-windows-node-name-here>
 ```
 
-### Create a pod spec for powershell, and use kubectl to run it
-TO DO: write this part
+### Create a deployment spec for fabrikamfiber.web, and use kubectl to run it
+
+```cmd
+C:\k\> cd \fabrikamfiber
+```
+
+Examine k8s\fabrikamfiber.web-deployment.yaml with a particular focus on the tolerations. These allow the Windows container to be deployed to the tainted Windows nodes.
+
 
 ## Lab 2 Package an ASP.NET app in a Docker image
 
@@ -91,6 +99,7 @@ C:\fabrikamfiber\> cd FabrikamFiber.Web
 C:\fabrikamfiber\FabrikamFiber.Web\> docker build --no-cache -t ff .
 C:\fabrikamfiber\FabrikamFiber.Web\> docker push <your registry>
 ```
+> For brevit we're going to skip the pushing of the Docker image to a registry for this lab, and use a pre-pushed image. You may do those steps if you have time, and a registry available. Just be sure to update the image in the deployment below.
 
 ## Lab 3 Run the ASP.NET app as a pod on a Kubernetes cluster and add a Linux ingress controller
 
@@ -122,14 +131,14 @@ kubectl get service -n <insert-your-name-here>
 
 ### configure an NGNIX ingress controller running on Linux to route to your service for TLS
 
-```bash
-# edit k8s/fabrikamfiber.web-ingress.yaml to replace your service name
+Edit k8s/fabrikamfiber.web-ingress.yaml and update the backend with your service name like fabrikamfiber.<insert-your-name-here>.service.cluster.local
 
+```bash
 # configure the service so the client can connect to the pods running the ASP.NET app
 kubectl apply -n ingress-basic -f k8s/fabrikamfiber.web-ingress.yaml
 
 # get the URL to the ingress controller
-kubectl describe ingress fabrikamfiber-ingress -n ingress-basic
-
-# pick the URL from the 
+kubectl describe ingress fabrikamfiber-ingress -n ingress-basic 
 ```
+
+Now  open a browser to the TLS terminated host and append your path. This is your Windows app running in container orchestrated by Kubernetes to run a Windows node, being fronted by an NGNIX ingress controller running on a Linux node.

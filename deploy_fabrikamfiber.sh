@@ -21,5 +21,5 @@ echo 'kubectl apply -n '$NAMESPACE' -f k8s/fabrikamfiber.web-loadbalancer.yaml'
 kubectl apply -n $NAMESPACE -f k8s/fabrikamfiber.web-loadbalancer.yaml
 
 # configure the ingress cotroller service so the client can connect to the pods running the ASP.NET app
-echo 'kubectl apply -n '$NAMESPACE' -f k8s/fabrikamfiber.web-ingress.yaml'
-kubectl apply -n $NAMESPACE -f k8s/fabrikamfiber.web-ingress.yaml
+echo 'kubectl apply -n ingress-basic -f k8s/fabrikamfiber.web-ingress.yaml'
+kubectl apply -n ingress-basic -f k8s/fabrikamfiber.web-ingress.yaml
