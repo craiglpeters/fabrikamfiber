@@ -2,8 +2,11 @@
 
 ## Preparation steps to run on Azure
 
+1. Let participants know that they should prepare a Windows 10 dev machine with Docker (with Windows containers enabled) and
+1. Docker run both docker run mcr.microsoft.com/windows/servercore:ltsc2019 and mcr.microsoft.com/dotnet/framework/aspnet:4.7.2-windowsservercore-ltsc2019 to download the images from a faster (than a workshop location) network
 1. Preallocate a static IP address
-1. Precreate Kubernetes clusters
+1. Precreate Kubernetes clusters with a Windows nodepool
+1. Taint the Windows nodes
 
 ## Lab 1 - Intro to Windows Containers
 
@@ -18,7 +21,7 @@ If you are running on a Windows 10 or Windows Server Core Host, then all of the 
 
 If you do not already have Docker installed, go to the [Docker for Windows installation](https://hub.docker.com/editions/community/docker-ce-desktop-windows) and follow the instructions. May require a couple of reboots to enable docker and then HyperV.
 
-Make sure that [Docker is set to run Windows containers](https://docs.docker.com/docker-for-windows/#switch-between-windows-and-linux-containers).
+> Make sure that [Docker is set to run Windows containers](https://docs.docker.com/docker-for-windows/#switch-between-windows-and-linux-containers). If this isn't set correctly you'll see an error on docker pull or run of Windows containers that the correct manifest can't be found
 
 ### Check if it works
 
