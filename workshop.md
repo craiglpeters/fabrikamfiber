@@ -57,18 +57,8 @@ C:\> cd C:\k
 C:\k> curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.14.0/bin/windows/amd64/kubectl.exe
 C:\k> set PATH=%PATH%;C:\k
 
-# Get your kubeconf for access to your cluster replacing vars below
+# Get your kubeconfig from your instructor, or if you have an Azure account follow the instructions in the [AKS docs](https://docs.microsoft.com/en-us/azure/aks/windows-container-cli) to create an AKS cluster with a Windows nodepool
 C:\> az aks get-credentials --resource-group <myResourceGroup> --name <myAKSCluster>
-
-# Create a namespace for your pods
-C:\> cd \fabrikamfiber
-# edit k8s\namespace.yaml and replace<insert-your-name-here>
-C:\fabrikamfiber\> kubectl apply -f k8s\namespace.yaml
-
-# Set your namespace preference
-kubectl config set-context $(kubectl config current-context) --namespace=<insert-your-name-here>
-# Validate it
-kubectl config view | grep namespace:
 ```
 
 ### Check out the nodes - there are Windows and Linux nodes in the cluster
@@ -80,54 +70,54 @@ C:\k\> kubectl get nodes -o wide
 C:\k\> kubectl describe node <insert-a-windows-node-name-here>
 ```
 
-### Create a deployment spec for fabrikamfiber.web, and use kubectl to run it
-
-```cmd
-C:\k\> cd \fabrikamfiber
-```
-
-Examine k8s\fabrikamfiber.web-deployment.yaml with a particular focus on the tolerations. These allow the Windows container to be deployed to the tainted Windows nodes.
-
-
 ## Lab 2 Package an ASP.NET app in a Docker image
 
 ```cmd
-C:\fabrikamfiber\> rmdir /s /q MyCompany.Visitors.Web\bin\Release\Publish
 C:\fabrikamfiber\> msbuild FabrikamFiber.CallCenter.sln /t:clean /p:Configuration=Release
 C:\fabrikamfiber\> msbuild FabrikamFiber.CallCenter.sln /t:build /p:Configuration=Release /p:PublishProfile=FolderProfile /p:DeployOnBuild=true
 C:\fabrikamfiber\> cd FabrikamFiber.Web
 C:\fabrikamfiber\FabrikamFiber.Web\> docker build --no-cache -t ff .
-C:\fabrikamfiber\FabrikamFiber.Web\> docker push <your registry>
 ```
-> For brevit we're going to skip the pushing of the Docker image to a registry for this lab, and use a pre-pushed image. You may do those steps if you have time, and a registry available. Just be sure to update the image in the deployment below.
+> For brevity, lets skip pushing the Docker image to a registry and use a pre-pushed image. Optionally, you may do those steps if you have time and a registry available. Just be sure to update the image in the deployment below.
 
 ## Lab 3 Run the ASP.NET app as a pod on a Kubernetes cluster and add a Linux ingress controller
 
-### Running the application as a pod on Kubernetes
+### Running the ASP.NET application as a pod on Kubernetes
 
-```bash
+```cmd
+# Create a namespace for your pods
+C:\> cd \fabrikamfiber
+# edit k8s\namespace.yaml and replace<insert-your-name-here>
+C:\fabrikamfiber\> kubectl apply -f k8s\namespace.yaml
+
+# Set your namespace preference
+kubectl config set-context $(kubectl config current-context) --namespace=<insert-your-name-here>
+# Validate it
+kubectl config view | grep namespace:
+
 # configure the database authentication as a kubernetes secret
-kubectl apply -n <insert-your-name-here> -f k8s/db-secret.yaml
+kubectl apply -f k8s/db-secret.yaml
 
 # create the mssql on linux deployment
-kubectl apply -n <insert-your-name-here> -f k8s/db-mssql-linux.yaml
+kubectl apply -f k8s/db-mssql-linux.yaml
 
 # create the kubernetes service so the ASP.NET app can connect to the database
-kubectl apply -n <insert-your-name-here> -f k8s/db-service.yaml
+kubectl apply -f k8s/db-service.yaml
 
 # deploy the APS.NET pods as a part of a deployment
-kubectl apply -n <insert-your-name-here> -f k8s/fabrikamfiber.web-deployment.yaml
+kubectl apply -f k8s/fabrikamfiber.web-deployment.yaml
 
 # edit k8s/fabrikamfiber.web-loadbalancer.yaml and append your name to the servicea
 
 # then create the load balancer
-kubectl apply -n <insert-your-name-here> -f k8s/fabrikamfiber.web-loadbalancer.yaml
+kubectl apply -f k8s/fabrikamfiber.web-loadbalancer.yaml
 
 # get the external IP for your service
-kubectl get service -n <insert-your-name-here>
+kubectl get service
 
 # Once the IP address is available, your can open a browser to connect to your ASP.NET app running in an container on a Windows node
 ```
+You  are now running an ASP.NET application in a Kubernetes managed pod on a Windows node!
 
 ### configure an NGNIX ingress controller running on Linux to route to your service for TLS
 
