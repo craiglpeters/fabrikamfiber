@@ -13,7 +13,7 @@ spec:
     - kubecon-demo-aks-ingress-craigp.eastus.cloudapp.azure.com
     secretName: tls-secret
   rules:
-  - host: fibrikamfiberweb.craig.svc.cluster.local
+  - host: fibrikamfiberweb.craig.eastus.cloudapp.azure.com
     http:
       paths:
       - path: /craig
