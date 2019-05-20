@@ -8,6 +8,8 @@
 1. Precreate Kubernetes clusters with a Windows nodepool
 1. Taint the Windows nodes
 
+Slides available [here](https://github.com/craiglpeters/fabrikamfiber/blob/master/May%202019%20Windows%20K8s%20Workshop%20Slides.pptx) this git repo
+
 ## Lab 1 - Intro to Windows Containers
 
 Run a simple cmd in a Windows container
