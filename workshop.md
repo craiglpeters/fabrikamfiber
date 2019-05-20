@@ -107,9 +107,7 @@ kubectl apply -f k8s/db-service.yaml
 # deploy the APS.NET pods as a part of a deployment
 kubectl apply -f k8s/fabrikamfiber.web-deployment.yaml
 
-# edit k8s/fabrikamfiber.web-loadbalancer.yaml and append your name to the servicea
-
-# then create the load balancer
+# create a load balancer
 kubectl apply -f k8s/fabrikamfiber.web-loadbalancer.yaml
 
 # get the external IP for your service
